@@ -70,7 +70,8 @@ async Task SendStudents(ChatId chatId)
 // Функция для отправки списка дежурных с кнопками
 async Task SendDuty(ChatId chatId)
 {
-    long chatIdLong = 5;
+    long chatIdLong = chatId.Identifier ?? throw new InvalidOperationException("Идентификатор чата не является числовым");
+
     if (!duties.ContainsKey(chatIdLong)) duties[chatIdLong] = new List<string>();
     var dutyList = duties[chatIdLong];
     string msg = dutyList.Any() ? "Дежурные на сегодня:\n" + string.Join("\n", dutyList) : "Список дежурных на сегодня пуст";
